@@ -1,0 +1,474 @@
+/*
+ * The detail screen is two panes: a header that stays put (identity, state and
+ * the decisions) and the record itself, which scrolls. A submitted organizer's
+ * profile runs several thousand pixels; without this the approve and reject
+ * buttons scroll away exactly when an admin is reading the thing they're
+ * deciding about.
+ */
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.top {
+  flex: 0 0 auto;
+}
+
+.scroller {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* Room for the card shadows so they aren't clipped by the scroll edge. */
+  padding: 2px 4px 28px 2px;
+  margin: 0 -4px 0 -2px;
+}
+
+@media (max-width: 860px) {
+  /* Window scroll below the breakpoint — see adminLayout.module.css. */
+  .page {
+    height: auto;
+  }
+
+  .scroller {
+    overflow-y: visible;
+  }
+}
+
+.back {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--navy-700);
+  text-decoration: none;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+.header {
+  margin-top: 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.name {
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.metaRow {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.dot::before {
+  content: '·';
+  margin-right: 10px;
+}
+
+.liveTag {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e2f3ec;
+  color: #17624a;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ---------------- decisions ---------------- */
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 9px 15px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--surface);
+  font-size: 0.87rem;
+  font-weight: 600;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--navy-500);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.approve {
+  border-color: transparent;
+  background: var(--navy-700);
+  color: #fff;
+}
+
+.approve:hover:not(:disabled) {
+  background: var(--navy-800);
+  border-color: transparent;
+}
+
+.danger {
+  color: var(--danger);
+  border-color: #f0cbc7;
+}
+
+.blocked {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+  max-width: 42ch;
+  text-align: right;
+}
+
+.dialog {
+  margin-top: 16px;
+  padding: 16px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.dialogTitle {
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.dialogNote {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.textarea {
+  margin-top: 12px;
+  width: 100%;
+  min-height: 88px;
+  padding: 10px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+  outline: none;
+}
+
+.textarea:focus {
+  border-color: var(--navy-500);
+  box-shadow: 0 0 0 3px rgba(60, 84, 136, 0.12);
+}
+
+.dialogActions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* ---------------- banners ---------------- */
+
+.banner {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+}
+
+.bannerWarn {
+  border: 1px solid #ecd3a5;
+  background: #fdf6e9;
+  color: #7d5510;
+}
+
+.bannerBad {
+  border: 1px solid #f3c9c5;
+  background: var(--danger-soft);
+  color: #8f2f29;
+}
+
+.bannerGood {
+  border: 1px solid #bfe3d3;
+  background: #e9f6f0;
+  color: #17624a;
+}
+
+/* ---------------- cards & fields ---------------- */
+
+.grid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+/*
+ * The right rail is much shorter than the record beside it, so it sticks to the
+ * top of the scroll pane — the step checklist and review history stay readable
+ * while an admin works down the profile.
+ */
+.rail {
+  position: sticky;
+  top: 0;
+}
+
+@media (max-width: 1020px) {
+  .rail {
+    position: static;
+  }
+}
+
+.card {
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.card + .card {
+  margin-top: 18px;
+}
+
+.cardTitle {
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.cardNote {
+  margin-top: 4px;
+  font-size: 0.83rem;
+  color: var(--ink-soft);
+}
+
+.fields {
+  margin: 14px 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 18px;
+}
+
+.field {
+  min-width: 0;
+}
+
+.fieldLabel {
+  font-size: 0.69rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.fieldValue {
+  margin-top: 3px;
+  font-size: 0.9rem;
+  word-break: break-word;
+}
+
+.fieldEmpty {
+  color: var(--ink-faint);
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+.docs {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.doc {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  color: var(--ink);
+  text-decoration: none;
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.doc:hover {
+  border-color: var(--navy-500);
+}
+
+.lockNote {
+  margin-top: 12px;
+  padding: 9px 11px;
+  border-radius: 9px;
+  background: var(--surface-sunken);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+/* ---------------- steps ---------------- */
+
+.steps {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 0.88rem;
+}
+
+.tick {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.66rem;
+  font-weight: 700;
+  background: var(--line);
+  color: var(--ink-faint);
+}
+
+.tickOn {
+  background: #d7efe4;
+  color: #17624a;
+}
+
+.stepMissing {
+  margin-top: 2px;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+
+/* ---------------- admin edit ---------------- */
+
+.editGrid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 16px;
+}
+
+.editField {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.editLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 5px;
+}
+
+.input {
+  padding: 8px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  background: var(--surface);
+  font-size: 0.88rem;
+  outline: none;
+  min-width: 0;
+}
+
+.input:focus {
+  border-color: var(--navy-500);
+  box-shadow: 0 0 0 3px rgba(60, 84, 136, 0.12);
+}
+
+.dirty {
+  border-color: var(--accent);
+}
+
+.editFoot {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 0.83rem;
+  color: var(--ink-soft);
+}
+
+/* ---------------- trail ---------------- */
+
+.trail {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.trailItem {
+  padding-left: 14px;
+  border-left: 2px solid var(--line);
+}
+
+.trailHead {
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.trailMeta {
+  margin-top: 2px;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+
+.trailReason {
+  margin-top: 5px;
+  font-size: 0.83rem;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 1020px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .fields,
+  .editGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .blocked {
+    text-align: left;
+  }
+}
