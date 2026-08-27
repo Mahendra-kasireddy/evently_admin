@@ -4,22 +4,23 @@ import { useAuth } from '../features/auth';
 import styles from './adminLayout.module.css';
 
 /**
- * Sections the console will grow into. Only Dashboard exists; the rest are
- * listed and visibly unavailable rather than routed to empty pages, so the
- * navigation never promises a screen that isn't there.
+ * Every section of the console, in the order an admin works through them:
+ * the overview first, then the people, then what they are doing, then money,
+ * then the inbox.
+ *
+ * There is no longer a "planned" list — every item here routes to a real
+ * screen backed by a real endpoint.
  */
-/** Sections that exist and route somewhere real. */
 const LIVE_SECTIONS = [
   { label: 'Dashboard', to: '/dashboard' },
+  { label: 'Users', to: '/users' },
   { label: 'Organizers', to: '/organizers' },
+  { label: 'Vendors', to: '/vendors' },
+  { label: 'Events', to: '/events' },
+  { label: 'Bookings', to: '/bookings' },
+  { label: 'Payments', to: '/payments' },
+  { label: 'Contact Us', to: '/contact-us' },
 ];
-
-/**
- * Sections the console will grow into. Listed and visibly unavailable rather
- * than routed to empty pages, so the navigation never promises a screen that
- * isn't there.
- */
-const PLANNED = ['Users', 'Vendors', 'Events', 'Bookings', 'Payments'];
 
 function initials(name: string, fallback: string): string {
   const parts = name.trim().split(/\s+/).filter(Boolean);
@@ -149,14 +150,6 @@ export function AdminLayout() {
                 >
                   {section.label}
                 </NavLink>
-              </li>
-            ))}
-            {PLANNED.map((label) => (
-              <li key={label}>
-                <span className={styles.navSoon} aria-disabled="true">
-                  {label}
-                  <span className={styles.soonTag}>Soon</span>
-                </span>
               </li>
             ))}
           </ul>

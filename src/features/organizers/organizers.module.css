@@ -281,3 +281,24 @@
   opacity: 0.45;
   cursor: not-allowed;
 }
+
+/*
+ * Role tags — an account can hold several at once, so they read as a set of
+ * small neutral chips rather than competing with the status pill.
+ */
+.roleTags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.roleTag {
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}

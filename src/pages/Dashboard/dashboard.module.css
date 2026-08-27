@@ -114,3 +114,127 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ------------------------------------------------------- live console data */
+
+.error {
+  margin-top: 16px;
+  padding: 11px 14px;
+  border: 1px solid #eccfcf;
+  border-radius: var(--radius-lg);
+  background: #fdf4f4;
+  font-size: 0.85rem;
+  color: #8f3232;
+}
+
+.block { margin-top: 26px; }
+
+.blockTitle {
+  font-size: 0.98rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.placeholder,
+.clear {
+  padding: 16px 18px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-lg);
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+}
+
+/* The attention queue: count first, because that is what is scanned. */
+.queue {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+}
+
+.queueRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 16px;
+  border: 1px solid var(--line);
+  border-left-width: 4px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.queueRow:hover { border-color: var(--navy-700); }
+
+.urgent { border-left-color: #c2413b; }
+.warn { border-left-color: #c98a1e; }
+.info { border-left-color: var(--navy-700); }
+
+.queueCount {
+  min-width: 2.2rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.queueLabel { flex: 1; font-size: 0.9rem; }
+
+.queueGo { color: var(--ink-faint); }
+
+/* Section tiles */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.tile {
+  display: block;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.tile:hover { border-color: var(--navy-700); }
+
+.tileLabel {
+  font-size: 0.69rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.tileValue {
+  margin-top: 6px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.tileNote {
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.good { color: #17624a; }
+.warn { color: #8a5709; }
+
+.caveat {
+  margin-top: 12px;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
