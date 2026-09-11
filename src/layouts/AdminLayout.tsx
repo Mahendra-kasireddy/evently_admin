@@ -19,6 +19,7 @@ const LIVE_SECTIONS = [
   { label: 'Events', to: '/events' },
   { label: 'Bookings', to: '/bookings' },
   { label: 'Payments', to: '/payments' },
+  { label: 'Coupons', to: '/coupons' },
   { label: 'Contact Us', to: '/contact-us' },
 ];
 

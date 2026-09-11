@@ -7,6 +7,7 @@ import { OrganizerDetailPage, OrganizersPage } from '../pages/Organizers';
 import { ContactDetailPage, ContactPage } from '../pages/Contact';
 import { UserDetailPage, UsersPage } from '../pages/Users';
 import { VendorDetailPage, VendorsPage } from '../pages/Vendors';
+import { CouponDetailPage, CouponsPage } from '../pages/Coupons';
 import { EventDetailPage, EventsPage } from '../pages/Events';
 import { BookingDetailPage, BookingsPage } from '../pages/Bookings';
 import { PaymentsPage } from '../pages/Payments';
@@ -29,6 +30,8 @@ export function AppRoutes() {
           <Route path="/users" element={<UsersPage />} />
           <Route path="/users/:id" element={<UserDetailPage />} />
           <Route path="/vendors" element={<VendorsPage />} />
+          <Route path="/coupons" element={<CouponsPage />} />
+          <Route path="/coupons/:id" element={<CouponDetailPage />} />
           <Route path="/vendors/:id" element={<VendorDetailPage />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/events/:id" element={<EventDetailPage />} />
