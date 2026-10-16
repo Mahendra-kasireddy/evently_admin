@@ -11,6 +11,7 @@ import { CouponDetailPage, CouponsPage } from '../pages/Coupons';
 import { EventDetailPage, EventsPage } from '../pages/Events';
 import { BookingDetailPage, BookingsPage } from '../pages/Bookings';
 import { PaymentsPage } from '../pages/Payments';
+import { SetupPage } from '../pages/Setup';
 import { AnonymousOnly } from './AnonymousOnly';
 import { RequireAdmin } from './RequireAdmin';
 
@@ -38,6 +39,7 @@ export function AppRoutes() {
           <Route path="/bookings" element={<BookingsPage />} />
           <Route path="/bookings/:id" element={<BookingDetailPage />} />
           <Route path="/payments" element={<PaymentsPage />} />
+          <Route path="/setup" element={<SetupPage />} />
           <Route path="/contact-us" element={<ContactPage />} />
           <Route path="/contact-us/:id" element={<ContactDetailPage />} />
         </Route>

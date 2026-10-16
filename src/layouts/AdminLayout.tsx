@@ -21,6 +21,7 @@ const LIVE_SECTIONS = [
   { label: 'Payments', to: '/payments' },
   { label: 'Coupons', to: '/coupons' },
   { label: 'Contact Us', to: '/contact-us' },
+  { label: 'App setup', to: '/setup' },
 ];
 
 function initials(name: string, fallback: string): string {
