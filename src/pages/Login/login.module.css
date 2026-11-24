@@ -213,6 +213,21 @@
   text-decoration: none;
 }
 
+.switch {
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.switchLink {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.switchLink:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 900px) {
   .page {
     grid-template-columns: 1fr;

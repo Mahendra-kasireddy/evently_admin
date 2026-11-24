@@ -6,7 +6,8 @@ import { AuthContext, type AuthStatus } from './context';
 import * as api from './service';
 import { isAdmin, type AdminUser, type OtpChallenge } from './types';
 
-const DENIED_MESSAGE = 'You don’t have permission to access Evently Admin.';
+const DENIED_MESSAGE =
+  'You don’t have permission to access Evently Admin. If an admin invited you, use Sign up.';
 
 /**
  * Owns the admin session: restore on load, admit only admins, drop the session
@@ -125,10 +126,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     })();
   }, [admit, drop]);
 
-  const requestOtp = useCallback((mobile: string): Promise<OtpChallenge> => {
-    setAccessDenied(null);
-    return api.sendOtp(mobile);
-  }, []);
+  const requestOtp = useCallback(
+    (mobile: string, purpose: api.OtpPurpose = 'signin'): Promise<OtpChallenge> => {
+      setAccessDenied(null);
+      return api.sendOtp(mobile, purpose);
+    },
+    [],
+  );
 
   const submitOtp = useCallback(
     async (requestId: string, code: string): Promise<'admin' | 'denied'> => {

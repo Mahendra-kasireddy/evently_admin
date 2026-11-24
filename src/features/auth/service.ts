@@ -1,5 +1,5 @@
 /**
- * The four backend calls this console makes. Nothing is invented: each function
+ * The auth calls this console makes. Nothing is invented: each function
  * maps 1:1 onto an endpoint that already exists in the Evently API.
  */
 import { request } from '../../lib/api/client';
@@ -11,10 +11,21 @@ export const MOBILE_PATTERN = /^\d{10}$/;
 /** `VerifyOtpDto` matches /^\d{6}$/. */
 export const OTP_LENGTH = 6;
 
-export function sendOtp(mobile: string, signal?: AbortSignal): Promise<OtpChallenge> {
+/**
+ * `signup` is the invite-only sign-up: the API sends a code only to a number
+ * with a pending admin invite (403 otherwise), and verifying that code is what
+ * grants the admin role.
+ */
+export type OtpPurpose = 'signin' | 'signup';
+
+export function sendOtp(
+  mobile: string,
+  purpose: OtpPurpose = 'signin',
+  signal?: AbortSignal,
+): Promise<OtpChallenge> {
   return request<OtpChallenge>('/auth/sendOtp', {
     method: 'POST',
-    body: { mobile },
+    body: purpose === 'signup' ? { mobile, purpose: 'admin_signup' } : { mobile },
     anonymous: true,
     ...(signal ? { signal } : {}),
   });

@@ -16,6 +16,8 @@ export interface OtpHandoff {
   mobile: string;
   /** Masked destination from the API, e.g. "••••••3210". */
   sentTo: string;
+  /** Which step sent it — so resend uses the same purpose and "Change number" goes back there. */
+  mode?: 'signin' | 'signup';
 }
 
 export function isOtpHandoff(value: unknown): value is OtpHandoff {

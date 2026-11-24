@@ -38,6 +38,8 @@ export function OtpStep() {
   if (!handoff) return <Navigate to="/login" replace />;
 
   const complete = code.length === OTP_LENGTH;
+  const mode = handoff.mode ?? 'signin';
+  const startPath = mode === 'signup' ? '/signup' : '/login';
 
   async function onSubmit(event: FormEvent) {
     event.preventDefault();
@@ -68,7 +70,7 @@ export function OtpStep() {
     setNotice(null);
     setBusy(true);
     try {
-      const challenge = await requestOtp(handoff.mobile);
+      const challenge = await requestOtp(handoff.mobile, handoff.mode ?? 'signin');
       setRequestId(challenge.requestId);
       setCode('');
       setCooldown(RESEND_AFTER);
@@ -83,7 +85,7 @@ export function OtpStep() {
 
   return (
     <LoginShell>
-      <p className={styles.eyebrow}>Verify</p>
+      <p className={styles.eyebrow}>{mode === 'signup' ? 'Sign up · Verify' : 'Verify'}</p>
       <h2 className={styles.title}>Enter your code</h2>
       <p className={styles.subtitle}>
         We sent a {OTP_LENGTH}-digit code to {handoff.sentTo || `the number ending ${handoff.mobile.slice(-4)}`}.
@@ -134,7 +136,7 @@ export function OtpStep() {
           <button
             className={styles.linkButton}
             type="button"
-            onClick={() => navigate('/login', { replace: true })}
+            onClick={() => navigate(startPath, { replace: true })}
           >
             Change number
           </button>

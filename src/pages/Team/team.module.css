@@ -1,0 +1,148 @@
+.inviteCard {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.inviteRow {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.input,
+.phone {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.input {
+  padding: 11px 12px;
+  outline: none;
+}
+
+.input:focus,
+.phone:focus-within {
+  border-color: var(--navy-500);
+  box-shadow: 0 0 0 3px rgba(60, 84, 136, 0.12);
+}
+
+.phone {
+  display: flex;
+  overflow: hidden;
+}
+
+.prefix {
+  display: grid;
+  place-items: center;
+  padding: 0 10px;
+  background: var(--surface-sunken);
+  border-right: 1px solid var(--line);
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.phoneInput {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  padding: 11px 12px;
+  background: transparent;
+}
+
+.inviteBtn {
+  padding: 11px 18px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.inviteBtn:hover:not(:disabled) {
+  background: var(--accent-dark);
+}
+
+.inviteBtn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.notice {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: #e8f5ef;
+  color: var(--success);
+  font-size: 0.88rem;
+}
+
+.sectionTitle {
+  margin-top: 28px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.youTag {
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--surface-sunken);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.dangerBtn {
+  padding: 6px 12px;
+  border: 1px solid #f3c9c5;
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--danger);
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.dangerBtn:hover:not(:disabled) {
+  background: var(--danger-soft);
+}
+
+.dangerBtn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 720px) {
+  .inviteRow {
+    grid-template-columns: 1fr;
+  }
+}

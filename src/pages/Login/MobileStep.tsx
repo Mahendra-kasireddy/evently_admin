@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { isApiConfigured } from '../../lib/api/client';
 import { errorMessage } from '../../lib/api/errors';
 import { MOBILE_PATTERN, useAuth } from '../../features/auth';
@@ -34,6 +34,7 @@ export function MobileStep() {
         requestId: challenge.requestId,
         mobile,
         sentTo: challenge.sentTo,
+        mode: 'signin',
       };
       navigate('/verify-otp', { state: handoff });
     } catch (cause) {
@@ -99,6 +100,13 @@ export function MobileStep() {
         <button className={styles.submit} type="submit" disabled={busy || !configured}>
           {busy ? 'Sending code…' : 'Send OTP'}
         </button>
+
+        <p className={styles.switch}>
+          Invited to the team?{' '}
+          <Link className={styles.switchLink} to="/signup">
+            Sign up
+          </Link>
+        </p>
       </form>
     </LoginShell>
   );

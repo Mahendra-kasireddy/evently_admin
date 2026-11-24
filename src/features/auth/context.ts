@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import type { OtpPurpose } from './service';
 import type { AdminUser, OtpChallenge } from './types';
 
 /**
@@ -20,7 +21,8 @@ export interface AuthContextValue {
    * explain why, instead of silently returning to an empty form.
    */
   accessDenied: string | null;
-  requestOtp: (mobile: string) => Promise<OtpChallenge>;
+  /** `signup` only reaches a number an admin has invited. */
+  requestOtp: (mobile: string, purpose?: OtpPurpose) => Promise<OtpChallenge>;
   /** Verifies the code, then admits only admins. Resolves to the outcome. */
   submitOtp: (requestId: string, code: string) => Promise<'admin' | 'denied'>;
   signOut: () => Promise<void>;

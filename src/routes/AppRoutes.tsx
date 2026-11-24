@@ -2,7 +2,8 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { FullPageMessage } from '../components/FullPageMessage';
 import { AdminLayout } from '../layouts/AdminLayout';
 import { DashboardPage } from '../pages/Dashboard';
-import { MobileStep, OtpStep } from '../pages/Login';
+import { MobileStep, OtpStep, SignupStep } from '../pages/Login';
+import { TeamPage } from '../pages/Team';
 import { OrganizerDetailPage, OrganizersPage } from '../pages/Organizers';
 import { ContactDetailPage, ContactPage } from '../pages/Contact';
 import { UserDetailPage, UsersPage } from '../pages/Users';
@@ -20,6 +21,7 @@ export function AppRoutes() {
     <Routes>
       <Route element={<AnonymousOnly />}>
         <Route path="/login" element={<MobileStep />} />
+        <Route path="/signup" element={<SignupStep />} />
         <Route path="/verify-otp" element={<OtpStep />} />
       </Route>
 
@@ -40,6 +42,7 @@ export function AppRoutes() {
           <Route path="/bookings/:id" element={<BookingDetailPage />} />
           <Route path="/payments" element={<PaymentsPage />} />
           <Route path="/setup" element={<SetupPage />} />
+          <Route path="/team" element={<TeamPage />} />
           <Route path="/contact-us" element={<ContactPage />} />
           <Route path="/contact-us/:id" element={<ContactDetailPage />} />
         </Route>
